@@ -19,4 +19,5 @@ plugins {
 
 rootProject.name = "marketplace"
 
-include("app")
+includeBuild("lessons")
+includeBuild("project")
