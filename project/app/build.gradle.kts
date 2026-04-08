@@ -1,5 +1,7 @@
-import org.gradle.kotlin.dsl.kotlin
-
 plugins {
-    kotlin("jvm")
+    id("build-jvm")
+}
+
+dependencies {
+    testImplementation(kotlin("test"))
 }

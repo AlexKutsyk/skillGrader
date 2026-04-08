@@ -1,5 +1,3 @@
-rootProject.name = "project"
-
 dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
@@ -8,17 +6,19 @@ dependencyResolutionManagement {
     }
 }
 
-//pluginManagement {
-//    includeBuild("../build-plugin")
-//    plugins {
-//        id("build-jvm") apply false
-//        id("build-kmp") apply false
-//    }
-//    repositories {
-//        mavenCentral()
-//        gradlePluginPortal()
-//    }
-//}
+pluginManagement {
+    includeBuild("../build-plugin")
+    plugins {
+        id("build-jvm") apply false
+        id("build-kmp") apply false
+    }
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = "project"
 
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.5.0"
