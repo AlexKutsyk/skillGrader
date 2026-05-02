@@ -1,0 +1,167 @@
+openapi: 3.0.0
+info:
+  title: API SkillGrade
+  description: Определение уровня знаний
+  version: 1.0.0
+  contact:
+    name: Alex Kutsyk
+    email: kytsyk@rambler.ru
+servers:
+  - url: http://localhost:8080/v1
+tags:
+  - name: rule
+    description: Критерии оценки
+paths:
+  /rule/create:
+    post:
+      tags:
+        - rule
+      summary: Создать правило
+      operationId: createRule
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref:
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref:
+  /rule/read:
+    post:
+      tags:
+        - rule
+      summary: Прочитать правило
+      operationId: readRule
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref:
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref:
+  /rule/update:
+    post:
+      tags:
+        - rule
+      summary: Изменить правило
+      operationId: updateRule
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref:
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref:
+  /rule/delete:
+    post:
+      tags:
+        - rule
+      summary: Удалить правило
+      operationId: deleteRule
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref:
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref:
+  /rule/search:
+    post:
+      tags:
+        - rule
+      summary: Искать правило
+      operationId: searchRule
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref:
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref:
+
+components:
+  schemas:
+
+    IRequest:
+      type: object
+      description: Базовый интерфейс для всех запросов
+      properties:
+        request type:
+          type: string
+          description: Поле-дескриминатор для вичисления типа запроса
+          example: create
+        discriminator:
+          propertyName: requestType
+          mapping:
+            create:
+            read:
+            update:
+            delete:
+            search:
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        group:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+
+    ResponseResult:
+      type: string
+      enum:
+        - success
+        - error
+
+    IResponse:
+      type: object
+      description: Базовый интерфейс для всех ответов
+      properties:
+        responseType:
+          type: string
+          description: Поле-дескриминатор для вичисления типа ответа
+          example: create
+        result:
+          $ref: '#/components/schemas/ResponseResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
