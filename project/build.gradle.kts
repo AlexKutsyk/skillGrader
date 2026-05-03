@@ -3,5 +3,5 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform) apply false
 }
 
-group = "com.otus.otuskotlin.marketplace"
+group = "com.otus.otuskotlin.skillGrader"
 version = "0.0.1"

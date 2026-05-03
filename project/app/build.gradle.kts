@@ -13,7 +13,7 @@ val resourcesFromLib by configurations.creating
 
 dependencies {
     testImplementation(kotlin("test"))
-    resourcesFromLib("com.otus.otuskotlin.marketplace:dcompose:1.0:resources@zip")
+    resourcesFromLib("com.otus.otuskotlin.skillGrade:dcompose:1.0:resources@zip")
 }
 
 tasks.register<Copy>("extractLibResources") {

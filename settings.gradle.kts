@@ -1,4 +1,4 @@
-rootProject.name = "marketplace"
+rootProject.name = "skillGrader"
 
 includeBuild("lessons")
 includeBuild("project")

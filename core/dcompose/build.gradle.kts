@@ -3,7 +3,7 @@ plugins {
     id("maven-publish")
 }
 
-group = "com.otus.otuskotlin.marketplace"
+group = "com.otus.otuskotlin.skillGrader"
 version = "0.0.1"
 
 allprojects {
@@ -32,7 +32,7 @@ publishing {
     }
     publications {
         create<MavenPublication>("maven") {
-            groupId = "com.otus.otuskotlin.marketplace"
+            groupId = "com.otus.otuskotlin.skillGrader"
             artifactId = "dcompose"
             version = "1.0"
 

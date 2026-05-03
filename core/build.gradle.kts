@@ -3,7 +3,7 @@ plugins {
     id("maven-publish")
 }
 
-group = "com.otus.otuskotlin.marketplace"
+group = "com.otus.otuskotlin.skillGrader"
 version = "0.0.1"
 
 allprojects {

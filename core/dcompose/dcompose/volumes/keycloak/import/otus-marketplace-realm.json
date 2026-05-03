@@ -1,7 +1,7 @@
 {
-  "id" : "otus-marketplace",
-  "realm" : "otus-marketplace",
-  "displayName" : "Otus Marketplace",
+  "id" : "skill-grade",
+  "realm" : "skill-grade",
+  "displayName" : "Skill Grade",
   "notBefore" : 0,
   "defaultSignatureAlgorithm" : "RS256",
   "revokeRefreshToken" : false,
@@ -57,7 +57,7 @@
         }
       },
       "clientRole" : false,
-      "containerId" : "otus-marketplace",
+      "containerId" : "skill-grade",
       "attributes" : { }
     }, {
       "id" : "e0ed7ba1-870a-443d-bd59-470a22a336ec",
@@ -73,7 +73,7 @@
       "description" : "${role_offline-access}",
       "composite" : false,
       "clientRole" : false,
-      "containerId" : "otus-marketplace",
+      "containerId" : "skill-grade",
       "attributes" : { }
     } ],
     "client" : {
@@ -415,7 +415,7 @@
     "enabled" : true,
     "alwaysDisplayInConsole" : false,
     "clientAuthenticatorType" : "client-secret",
-    "redirectUris" : [ "/realms/otus-marketplace/account/*" ],
+    "redirectUris" : [ "/realms/skill-grade/account/*" ],
     "webOrigins" : [ ],
     "notBefore" : 0,
     "bearerOnly" : false,
@@ -440,12 +440,12 @@
     "clientId" : "account-console",
     "name" : "${client_account-console}",
     "rootUrl" : "${authBaseUrl}",
-    "baseUrl" : "/realms/otus-marketplace/account/",
+    "baseUrl" : "/realms/skill-grade/account/",
     "surrogateAuthRequired" : false,
     "enabled" : true,
     "alwaysDisplayInConsole" : false,
     "clientAuthenticatorType" : "client-secret",
-    "redirectUris" : [ "/realms/otus-marketplace/account/*" ],
+    "redirectUris" : [ "/realms/skill-grade/account/*" ],
     "webOrigins" : [ ],
     "notBefore" : 0,
     "bearerOnly" : false,
@@ -532,7 +532,7 @@
     "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
   }, {
     "id" : "96b7d5f3-b04b-4460-9f7a-faf964c583a5",
-    "clientId" : "otus-marketplace-service",
+    "clientId" : "skill-grade-service",
     "rootUrl" : "http://localhost:8080",
     "surrogateAuthRequired" : false,
     "enabled" : true,
@@ -642,12 +642,12 @@
     "clientId" : "security-admin-console",
     "name" : "${client_security-admin-console}",
     "rootUrl" : "${authAdminUrl}",
-    "baseUrl" : "/admin/otus-marketplace/console/",
+    "baseUrl" : "/admin/skill-grade/console/",
     "surrogateAuthRequired" : false,
     "enabled" : true,
     "alwaysDisplayInConsole" : false,
     "clientAuthenticatorType" : "client-secret",
-    "redirectUris" : [ "/admin/otus-marketplace/console/*" ],
+    "redirectUris" : [ "/admin/skill-grade/console/*" ],
     "webOrigins" : [ "+" ],
     "notBefore" : 0,
     "bearerOnly" : false,
