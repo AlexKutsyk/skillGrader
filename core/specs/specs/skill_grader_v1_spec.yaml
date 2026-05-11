@@ -120,9 +120,9 @@ components:
       type: object
       description: Базовый интерфейс для всех запросов
       properties:
-        request type:
+        requestType:
           type: string
-          description: Поле-дескриминатор для вичисления типа запроса
+          description: Поле-дескриминатор для вычисления типа запроса
           example: create
       discriminator:
         propertyName: requestType
@@ -377,7 +377,7 @@ components:
     RuleRequestDebug:
       type: object
       properties: 
-        debud:
+        debug:
           $ref: '#/components/schemas/RuleDebug'
     
     RuleDebug:

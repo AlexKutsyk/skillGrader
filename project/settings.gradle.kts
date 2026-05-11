@@ -29,3 +29,5 @@ plugins {
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(":app")
+include(":jackson-v1-api")
+include(":stubs")
