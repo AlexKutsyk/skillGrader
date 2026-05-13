@@ -232,7 +232,7 @@ components:
         - $ref: '#/components/schemas/RuleRequestDebug'
         - type: object
           properties:
-            request:
+            requestRule:
               $ref: '#/components/schemas/RuleCreateObject'
 
     RuleReadObject:
@@ -248,7 +248,7 @@ components:
         - $ref: '#/components/schemas/RuleRequestDebug'
         - type: object
           properties:
-            request:
+            requestRule:
               $ref: '#/components/schemas/RuleReadObject'
 
     RuleUpdateObject:
@@ -261,7 +261,7 @@ components:
         - $ref: '#/components/schemas/RuleRequestDebug'
         - type: object
           properties:
-            request:
+            requestRule:
               $ref: '#/components/schemas/RuleUpdateObject'
 
     RuleDeleteObject:
@@ -277,7 +277,7 @@ components:
         - $ref: '#/components/schemas/RuleRequestDebug'
         - type: object
           properties:
-            request:
+            requestRule:
               $ref: '#/components/schemas/RuleDeleteObject'
 
     RuleSearchFilter:
@@ -395,7 +395,7 @@ components:
         - success
         - notFound
         - badId
-        - badTitle
+        - badName
         - badDescription
         - canNotDelete
         - bedSearchString

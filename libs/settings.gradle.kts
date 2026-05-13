@@ -1,3 +1,5 @@
+rootProject.name = "libs"
+
 dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
@@ -18,17 +20,11 @@ pluginManagement {
     }
 }
 
-rootProject.name = "project"
-
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.5.0"
 }
 
-// Включает вот такую конструкцию
-//implementation(projects.m2l5Gradle.sub1.ssub1)
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-
-include(":app")
-include(":jackson-v1-api")
-include(":common")
-//include(":stubs")
+include(":lib-logging-common")
+include(":lib-logging-kermit")
+include(":lib-logging-logback")
+//include(":lib-logging-socket")
