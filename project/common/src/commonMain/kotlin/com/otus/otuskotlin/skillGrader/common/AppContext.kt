@@ -20,9 +20,9 @@ data class AppContext(
 
     var requestId: AppRequestId = AppRequestId.NONE,
     var timeStart: Instant = Instant.NONE,
-    var adRequest: AppRule = AppRule(),
-    var adFilterRequest: AppRuleFilter = AppRuleFilter(),
+    var ruleRequest: AppRule = AppRule(),
+    var ruleFilterRequest: AppRuleFilter = AppRuleFilter(),
 
-    var adResponse: AppRule = AppRule(),
-    var adsResponse: MutableList<AppRule> = mutableListOf(),
+    var ruleResponse: AppRule = AppRule(),
+    var rulesResponse: MutableList<AppRule> = mutableListOf(),
 )

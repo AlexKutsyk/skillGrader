@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: API SkillGrade
+  title: API SkillGrader
   description: Определение уровня знаний
   version: 1.0.0
   contact:
@@ -12,6 +12,7 @@ tags:
   - name: rule
     description: Критерии оценки
 paths:
+
   /rule/create:
     post:
       tags:
@@ -32,6 +33,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RuleCreateResponse'
+
   /rule/read:
     post:
       tags:
@@ -52,6 +54,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RuleReadResponse'
+
   /rule/update:
     post:
       tags:
@@ -72,6 +75,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RuleUpdateResponse'
+
   /rule/delete:
     post:
       tags:
@@ -92,6 +96,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RuleDeleteResponse'
+
   /rule/search:
     post:
       tags:
@@ -205,7 +210,7 @@ components:
           type: integer
           description: 'Минимальный процент по аудированию (восприятие речи на слух). Значение от 0 до 100'
         timeWindowDays:
-          type: object
+          type: integer
           description: 'Временное окно (в днях), за которое учитываются результаты тестов'
         priority:
           type: integer
@@ -254,6 +259,12 @@ components:
     RuleUpdateObject:
       allOf:
         - $ref: '#/components/schemas/BaseRule'
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/UserId'
+            lock:
+              $ref: '#/components/schemas/RuleLock'
 
     RuleUpdateRequest:
       allOf:
@@ -270,6 +281,8 @@ components:
           properties:
             id:
               $ref: '#/components/schemas/RuleId'
+            lock:
+              $ref: '#/components/schemas/RuleLock'
 
     RuleDeleteRequest:
       allOf:

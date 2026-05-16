@@ -7,8 +7,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-common"))
-
-//                implementation(projects.okMarketplaceCommon)
+                implementation(projects.common)
             }
         }
         val commonTest by getting {

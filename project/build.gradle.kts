@@ -7,7 +7,7 @@ group = "com.otus.otuskotlin.skillGrader"
 version = "0.0.1"
 
 val specDir = "${rootDir}/../core/specs/specs"
-extra["spec-v1"] = "$specDir/skill_grader_v1_spec.yaml"
+extra["spec-v1"] = "$specDir/skill-grader-spec-v1.yaml"
 
 allprojects {
     repositories {
