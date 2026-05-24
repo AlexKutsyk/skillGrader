@@ -2,7 +2,7 @@ plugins {
     kotlin("jvm")
 }
 
-group = "com.otus.otuskotlin.marketplace"
+group = "com.otus.otuskotlin.skillGrade"
 version = "0.0.1"
 
 repositories {

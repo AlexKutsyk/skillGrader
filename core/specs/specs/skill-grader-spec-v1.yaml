@@ -1,0 +1,414 @@
+openapi: 3.0.0
+info:
+  title: API SkillGrader
+  description: Определение уровня знаний
+  version: 1.0.0
+  contact:
+    name: Alex Kutsyk
+    email: kytsyk@rambler.ru
+servers:
+  - url: http://localhost:8080/v1
+tags:
+  - name: rule
+    description: Критерии оценки
+paths:
+
+  /rule/create:
+    post:
+      tags:
+        - rule
+      summary: Создать правило
+      operationId: createRule
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleCreateRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleCreateResponse'
+
+  /rule/read:
+    post:
+      tags:
+        - rule
+      summary: Прочитать правило
+      operationId: readRule
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleReadRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleReadResponse'
+
+  /rule/update:
+    post:
+      tags:
+        - rule
+      summary: Изменить правило
+      operationId: updateRule
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleUpdateRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleUpdateResponse'
+
+  /rule/delete:
+    post:
+      tags:
+        - rule
+      summary: Удалить правило
+      operationId: deleteRule
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleDeleteRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleDeleteResponse'
+
+  /rule/search:
+    post:
+      tags:
+        - rule
+      summary: Искать правило
+      operationId: searchRule
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleSearchRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleSearchResponse'
+
+components:
+  schemas:
+
+    IRequest:
+      type: object
+      description: Базовый интерфейс для всех запросов
+      properties:
+        requestType:
+          type: string
+          description: Поле-дескриминатор для вычисления типа запроса
+          example: create
+      discriminator:
+        propertyName: requestType
+        mapping:
+          create: '#/components/schemas/RuleCreateRequest'
+          read: '#/components/schemas/RuleReadRequest'
+          update: '#/components/schemas/RuleUpdateRequest'
+          delete: '#/components/schemas/RuleDeleteRequest'
+          search: '#/components/schemas/RuleSearchRequest'
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        group:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+
+    ResponseResult:
+      type: string
+      enum:
+        - success
+        - error
+
+    IResponse:
+      type: object
+      description: Базовый интерфейс для всех ответов
+      properties:
+        responseType:
+          type: string
+          description: Поле-дескриминатор для вичисления типа ответа
+          example: create
+        result:
+          $ref: '#/components/schemas/ResponseResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+      discriminator:
+        propertyName: responseType
+        mapping:
+          create: '#/components/schemas/RuleCreateResponse'
+          read: '#/components/schemas/RuleReadResponse'
+          update: '#/components/schemas/RuleUpdateResponse'
+          delete: '#/components/schemas/RuleDeleteResponse'
+          search: '#/components/schemas/RuleSearchResponse'
+
+    UserId:
+      type: string
+      description: ID пользователя
+
+    RuleId:
+      type: string
+      description: ID правила
+
+    RuleLock:
+      type: string
+      description: Версия оптимистичной блокировки
+
+    BaseRule:
+      type: object
+      description: Объект описывает свойства одинаковые для create и update
+      properties:
+        name:
+          type: string
+          description: Название правила
+        grade:
+          $ref: '#/components/schemas/Grade'
+        minGrammarPercent:
+          type: integer
+          description: 'Минимальный процент правильных ответов по грамматике, необходимый для получения этого уровня. Значение от 0 до 100'
+        minLexiconsPercent:
+          type: integer
+          description: 'Минимальный процент правильных ответов по лексике (словарному запасу). Значение от 0 до 100'
+        minListeningPercent:
+          type: integer
+          description: 'Минимальный процент по аудированию (восприятие речи на слух). Значение от 0 до 100'
+        timeWindowDays:
+          type: integer
+          description: 'Временное окно (в днях), за которое учитываются результаты тестов'
+        priority:
+          type: integer
+          description: 'Числовой приоритет правила. Чем выше число, тем важнее правило (используется, когда студент подходит под несколько уровней одновременно)'
+
+    Grade:
+      type: string
+      description: Название уровня
+      enum:
+        - A1
+        - A2
+        - B1
+        - B2
+        - C1
+        - C2
+
+    RuleCreateObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseRule'
+
+    RuleCreateRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/RuleRequestDebug'
+        - type: object
+          properties:
+            requestRule:
+              $ref: '#/components/schemas/RuleCreateObject'
+
+    RuleReadObject:
+      allOf:
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/RuleId'
+
+    RuleReadRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/RuleRequestDebug'
+        - type: object
+          properties:
+            requestRule:
+              $ref: '#/components/schemas/RuleReadObject'
+
+    RuleUpdateObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseRule'
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/UserId'
+            lock:
+              $ref: '#/components/schemas/RuleLock'
+
+    RuleUpdateRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/RuleRequestDebug'
+        - type: object
+          properties:
+            requestRule:
+              $ref: '#/components/schemas/RuleUpdateObject'
+
+    RuleDeleteObject:
+      allOf:
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/RuleId'
+            lock:
+              $ref: '#/components/schemas/RuleLock'
+
+    RuleDeleteRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/RuleRequestDebug'
+        - type: object
+          properties:
+            requestRule:
+              $ref: '#/components/schemas/RuleDeleteObject'
+
+    RuleSearchFilter:
+      type: object
+      description: Набор фильтров для поиска
+      properties:
+        searchString:
+          type: string
+          description: Поисковая строка, которая будет искаться в объявлениях
+        id:
+          $ref: '#/components/schemas/RuleId'
+        grade:
+          $ref: '#/components/schemas/Grade'
+
+    RuleSearchRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/RuleRequestDebug'
+        - type: object
+          properties:
+            ruleFilter:
+              $ref: '#/components/schemas/RuleSearchFilter'
+
+    RuleResponseObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseRule'
+        - type: object
+          description: Объект, который возвращается в ответе бэкенда
+          properties:
+            id:
+              $ref: '#/components/schemas/RuleId'
+            permissions:
+              type: array
+              uniqueItems: true
+              items:
+                $ref: '#/components/schemas/RulePermissions'
+
+    RulePermissions:
+      type: string
+      description: 'Показывает, какие действия разрешены над Rule'
+      enum:
+        - read
+        - update
+        - delete
+
+    RuleResponseSingle:
+      allOf:
+        - type: object
+          description: Ответ с одним объектом Rule
+          properties:
+            rule:
+              $ref: '#/components/schemas/RuleResponseObject'
+
+    RuleResponseMulti:
+      allOf:
+        - type: object
+          description: Список найденных объектов Rule
+          properties:
+            rules:
+              type: array
+              items:
+                $ref: '#/components/schemas/RuleResponseObject'
+
+    RuleCreateResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/RuleResponseSingle'
+
+    RuleReadResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/RuleResponseSingle'
+
+    RuleUpdateResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/RuleResponseSingle'
+
+    RuleDeleteResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/RuleResponseSingle'
+
+    RuleSearchResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/RuleResponseMulti'
+          
+    #STUBS
+    RuleRequestDebugMode:
+      type: string
+      enum: 
+        - prod
+        - test
+        - stub
+
+    RuleRequestDebug:
+      type: object
+      properties: 
+        debug:
+          $ref: '#/components/schemas/RuleDebug'
+    
+    RuleDebug:
+      type: object
+      properties: 
+        mode:
+          $ref: '#/components/schemas/RuleRequestDebugMode'
+        stub:
+          $ref: '#/components/schemas/RuleRequestDebugStubs'
+          
+    RuleRequestDebugStubs:
+      type: string
+      description: Варианты моков
+      enum:
+        - success
+        - notFound
+        - badId
+        - badName
+        - badDescription
+        - canNotDelete
+        - bedSearchString

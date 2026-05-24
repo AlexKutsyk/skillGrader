@@ -29,3 +29,7 @@ plugins {
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(":app")
+include(":jackson-api-v1")
+include(":common")
+include(":mappers-api-v1")
+include(":stubs")

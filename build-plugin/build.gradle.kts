@@ -12,6 +12,10 @@ gradlePlugin {
             id = "build-kmp"
             implementationClass = "BuildPluginMultiplatform"
         }
+        register("build-docker") {
+            id = "build-docker"
+            implementationClass = "DockerPlugin"
+        }
     }
 }
 

@@ -20,4 +20,6 @@ pluginManagement {
     }
 }
 
-include(":marketplace-dcompose")
+include(":dcompose")
+include(":specs")
+include(":swagger")
