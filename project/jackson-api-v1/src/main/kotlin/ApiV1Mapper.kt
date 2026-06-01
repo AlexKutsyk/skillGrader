@@ -1,3 +1,5 @@
+package com.otus.otuskotlin.skillGrader.project.jackson
+
 import com.fasterxml.jackson.databind.MapperFeature
 import com.fasterxml.jackson.databind.json.JsonMapper
 import com.otus.otuskotlin.skillGrader.api.v1.models.IRequest

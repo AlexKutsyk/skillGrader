@@ -1,0 +1,138 @@
+import org.gradle.kotlin.dsl.named
+import com.otus.otuskotlin.skillGrader.plugin.DockerBuildTask
+
+plugins {
+    alias(libs.plugins.kotlinx.serialization)
+    id("build-kmp")
+    alias(libs.plugins.shadowJar)
+    id("build-docker")
+}
+
+docker {
+    // JVM образ
+    images.register("Jvm") {
+        buildContext = project.layout.buildDirectory.dir("docker-jvm").get().toString()
+        dockerFile = "Dockerfile"
+        dependsOnTask = "jvmJar"
+        imageName = "${project.name}-jvm"
+        imageTag = "${project.version}"
+    }
+}
+
+kotlin {
+    jvm {  }
+
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(kotlin("stdlib-common"))
+                implementation(libs.ktor.server.core)
+//                implementation(libs.ktor.server.cio)
+                implementation(libs.ktor.server.cors)
+                implementation(libs.ktor.server.yaml)
+                implementation(libs.ktor.server.negotiation)
+                implementation(libs.ktor.server.headers.response)
+                implementation(libs.ktor.server.headers.caching)
+
+                implementation(project(":common"))
+                implementation(project(":app-common"))
+                implementation(project(":biz"))
+
+                // Stubs
+                implementation(project(":stubs"))
+
+                implementation(libs.kotlinx.serialization.core)
+                implementation(libs.kotlinx.serialization.json)
+                implementation(libs.ktor.serialization.json)
+
+                // logging
+                implementation(project(":log-api-v1"))
+                implementation("com.otus.otuskotlin.skillGrader.libs:lib-logging-common")
+                implementation("com.otus.otuskotlin.skillGrader.libs:lib-logging-kermit")
+                implementation("com.otus.otuskotlin.skillGrader.libs:lib-logging-socket")
+            }
+        }
+
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(kotlin("test-common"))
+                implementation(kotlin("test-annotations-common"))
+
+                implementation(libs.ktor.server.test)
+                implementation(libs.ktor.client.negotiation)
+            }
+        }
+
+        val jvmMain by getting {
+            dependencies {
+                implementation(kotlin("stdlib-jdk8"))
+
+                // jackson
+                implementation(libs.ktor.serialization.jackson)
+                implementation(libs.ktor.server.calllogging)
+                implementation(libs.ktor.server.headers.default)
+
+                implementation(libs.logback)
+
+                // ktor
+                implementation(libs.ktor.server.netty)
+
+                // transport models
+                implementation(project(":jackson-api-v1"))
+                implementation(project(":mappers-api-v1"))
+                implementation("com.otus.otuskotlin.skillGrader.libs:lib-logging-logback")
+
+            }
+        }
+
+        val jvmTest by getting {
+            dependencies {
+                implementation(kotlin("test-junit"))
+                implementation(project(":jackson-api-v1"))
+            }
+        }
+    }
+}
+
+tasks {
+    // Если ошибка: "Entry application.yaml is a duplicate but no duplicate handling strategy has been set."
+    // Возникает из-за наличия файлов как в common, так и в jvm платформе
+    withType(ProcessResources::class) {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
+
+
+    named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
+        isZip64 = true
+        manifest {
+            // Optionally, set the main class for the shadowed JAR.
+            attributes["Main-Class"] = "io.ktor.server.cio.EngineMain"
+        }
+        dependencies {
+            exclude(dependency("org.graalvm.js:js:.*"))
+            exclude(dependency("org.graalvm.polyglot:js:.*"))
+        }
+        // Исключаем проблемные файлы из упаковки
+        exclude("**/*.pom")
+        exclude("**/*.module")
+    }
+}
+
+afterEvaluate {
+    tasks {
+        named("dockerBuildJvm", DockerBuildTask::class) {
+            dependsOn(shadowJar)
+            group = "docker"
+            doFirst {
+                copy {
+                    from("Dockerfile.jvm") { rename { "Dockerfile" } }
+                    from(shadowJar.get().archiveFile.get())
+                    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+                    println("BUILD CONTEXT: ${buildContext.get()}")
+                    into(buildContext)
+                }
+            }
+        }
+    }
+}

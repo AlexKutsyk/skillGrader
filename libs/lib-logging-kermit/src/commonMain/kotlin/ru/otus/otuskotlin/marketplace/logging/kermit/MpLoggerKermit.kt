@@ -3,32 +3,32 @@ package ru.otus.otuskotlin.marketplace.logging.kermit
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.Severity
 import co.touchlab.kermit.StaticConfig
-import com.otus.otuskotlin.skillGrader.logging.common.IMpLogWrapper
+import com.otus.otuskotlin.skillGrader.logging.common.ILogWrapper
 import kotlin.reflect.KClass
 
 @Suppress("unused")
-fun mpLoggerKermit(loggerId: String): IMpLogWrapper {
+fun mpLoggerKermit(loggerId: String): ILogWrapper {
     val logger = Logger(
         config = StaticConfig(
             minSeverity = Severity.Info,
         ),
         tag = "DEV"
     )
-    return MpLoggerWrapperKermit(
+    return LoggerWrapperKermit(
         logger = logger,
         loggerId = loggerId,
     )
 }
 
 @Suppress("unused")
-fun mpLoggerKermit(cls: KClass<*>): IMpLogWrapper {
+fun mpLoggerKermit(cls: KClass<*>): ILogWrapper {
     val logger = Logger(
         config = StaticConfig(
             minSeverity = Severity.Info,
         ),
         tag = "DEV"
     )
-    return MpLoggerWrapperKermit(
+    return LoggerWrapperKermit(
         logger = logger,
         loggerId = cls.qualifiedName?: "",
     )

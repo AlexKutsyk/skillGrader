@@ -9,7 +9,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-common"))
 
-                implementation(project(":ok-marketplace-lib-logging-common"))
+                implementation(project(":lib-logging-common"))
 
                 implementation(libs.coroutines.core)
                 implementation(libs.ktor.network)

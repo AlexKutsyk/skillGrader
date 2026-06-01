@@ -1,4 +1,4 @@
-package ru.otus.otuskotlin.marketplace.logging
+package com.otus.otuskotlin.skillGrader.libs.lib.logging.logback.logging
 
 import kotlinx.coroutines.runBlocking
 import org.slf4j.LoggerFactory
