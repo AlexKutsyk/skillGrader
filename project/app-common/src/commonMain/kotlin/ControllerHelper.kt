@@ -1,6 +1,6 @@
 package ru.otus.otuskotlin.marketplace.app.common
 
-import com.otus.otuskotlin.skillGrader.project.app.common.IServerSettings
+import com.otus.otuskotlin.skillGrader.project.app.common.IServiceSettings
 import com.otus.otuskotlin.skillGrader.project.common.AppContext
 import com.otus.otuskotlin.skillGrader.project.common.helpers.asAppError
 import com.otus.otuskotlin.skillGrader.project.common.models.AppCommand
@@ -9,7 +9,7 @@ import ru.otus.otuskotlin.marketplace.api.log1.mapper.toLog
 import kotlin.reflect.KClass
 import kotlin.time.Clock
 
-suspend inline fun <T> IServerSettings.controllerHelper(
+suspend inline fun <T> IServiceSettings.controllerHelper(
     crossinline getRequest: suspend AppContext.() -> Unit,
     crossinline toResponse: suspend AppContext.() -> T,
     clazz: KClass<*>,

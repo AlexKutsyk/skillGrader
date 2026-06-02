@@ -1,9 +1,9 @@
 package com.otus.otuskotlin.skillGrader.project.ktor.v1
 
-import com.otus.otuskotlin.skillGrader.project.ktor.ServerSettings
+import com.otus.otuskotlin.skillGrader.project.ktor.ServiceSettings
 import io.ktor.server.routing.*
 
-fun Route.v1Rule(appSettings: ServerSettings) {
+fun Route.v1Rule(appSettings: ServiceSettings) {
     route("rule") {
         post("create") {
             call.createRule(appSettings)

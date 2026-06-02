@@ -2,7 +2,7 @@ package com.otus.otuskotlin.skillGrader.project.ktor.v1
 
 import com.otus.otuskotlin.skillGrader.api.v1.models.IRequest
 import com.otus.otuskotlin.skillGrader.api.v1.models.IResponse
-import com.otus.otuskotlin.skillGrader.project.ktor.ServerSettings
+import com.otus.otuskotlin.skillGrader.project.ktor.ServiceSettings
 import com.otus.otuskotlin.skillGrader.project.mappers.v1.fromTransport
 import com.otus.otuskotlin.skillGrader.project.mappers.v1.toTransportRule
 import io.ktor.server.application.*
@@ -12,7 +12,7 @@ import ru.otus.otuskotlin.marketplace.app.common.controllerHelper
 import kotlin.reflect.KClass
 
 suspend inline fun <reified Q : IRequest, @Suppress("unused") reified R : IResponse> ApplicationCall.processV1(
-    appSettings: ServerSettings,
+    appSettings: ServiceSettings,
     clazz: KClass<*>,
     logId: String,
 ) = appSettings.controllerHelper(

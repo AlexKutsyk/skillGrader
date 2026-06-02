@@ -10,7 +10,7 @@ import kotlin.test.assertEquals
 class ApplicationTest {
     @Test
     fun `root endpoint`() = testApplication {
-        application { module(ServerSettings()) }
+        application { module(ServiceSettings()) }
         val response = client.get("/")
         assertEquals(HttpStatusCode.OK, response.status)
         assertEquals("Hello, world!", response.bodyAsText())

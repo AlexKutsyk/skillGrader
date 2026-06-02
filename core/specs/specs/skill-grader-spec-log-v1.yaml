@@ -79,18 +79,20 @@ components:
       properties:
         id:
           type: string
-        title:
+        name:
           type: string
-        description:
+        grade:
           type: string
-        adType:
-          type: string
-        visibility:
-          type: string
-        ownerId:
-          type: string
-        productId:
-          type: string
+        minGrammarPercent:
+          type: integer
+        minLexiconsPercent:
+          type: integer
+        minListeningPercent:
+          type: integer
+        timeWindowDays:
+          type: integer
+        priority:
+          type: integer
         permissions:
           type: array
           uniqueItems: true
@@ -101,8 +103,4 @@ components:
       title: Модель лога фильтра
       properties:
         searchString:
-          type: string
-        ownerId:
-          type: string
-        dealSide:
           type: string

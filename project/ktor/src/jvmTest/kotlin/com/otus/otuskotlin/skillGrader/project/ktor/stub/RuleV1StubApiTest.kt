@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.otus.otuskotlin.skillGrader.api.v1.models.RuleUpdateRequest
 import com.otus.otuskotlin.skillGrader.project.common.AppCorSettings
-import com.otus.otuskotlin.skillGrader.project.ktor.ServerSettings
+import com.otus.otuskotlin.skillGrader.project.ktor.ServiceSettings
 import com.otus.otuskotlin.skillGrader.project.ktor.moduleJvm
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -133,7 +133,7 @@ class V1RuleStubApiTest {
         request: IRequest,
         function: suspend (HttpResponse) -> Unit,
     ): Unit = testApplication {
-        application { moduleJvm(ServerSettings(corSettings = AppCorSettings())) }
+        application { moduleJvm(ServiceSettings(corSettings = AppCorSettings())) }
         val client = createClient {
             install(ContentNegotiation) {
                 jackson {

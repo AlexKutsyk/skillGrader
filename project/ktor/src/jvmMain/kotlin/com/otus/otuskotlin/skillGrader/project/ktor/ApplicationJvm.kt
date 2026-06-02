@@ -19,7 +19,7 @@ fun main(args: Array<String>): Unit = EngineMain.main(args)
 
 @Suppress("unused") // Referenced in application.conf
 fun Application.moduleJvm(
-    serverSettings: ServerSettings = initServerSettings(),
+    serverSettings: ServiceSettings = initServerSettings(),
 ) {
     install(CachingHeaders)
     install(DefaultHeaders)
