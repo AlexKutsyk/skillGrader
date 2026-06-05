@@ -4,10 +4,9 @@ import com.otus.otuskotlin.skillGrader.project.common.models.AppGrade
 import com.otus.otuskotlin.skillGrader.project.common.models.AppRule
 import com.otus.otuskotlin.skillGrader.project.common.models.AppRuleId
 import com.otus.otuskotlin.skillGrader.project.stubs.AppRuleStubBase.RULE_STUB
-import kotlin.random.Random
 
 object AppRuleStub {
-    fun get(): AppRule = AppRuleStubBase.RULE_STUB.copy()
+    fun get(): AppRule = RULE_STUB.copy()
 
     fun prepareResult(block: AppRule.() -> Unit): AppRule = get().apply(block)
 
