@@ -8,6 +8,7 @@ import com.otus.otuskotlin.skillGrader.project.common.models.AppRuleFilter
 import com.otus.otuskotlin.skillGrader.project.common.models.AppState
 import com.otus.otuskotlin.skillGrader.project.common.models.AppWorkMode
 import com.otus.otuskotlin.skillGrader.project.common.stubs.AppStubs
+import com.otus.otuskotlin.skillGrader.project.common.ws.IWsSession
 import kotlin.time.Instant
 
 data class AppContext(
@@ -17,6 +18,7 @@ data class AppContext(
 
     var workMode: AppWorkMode = AppWorkMode.PROD,
     var stubCase: AppStubs = AppStubs.NONE,
+    var wsSession: IWsSession = IWsSession.NONE,
 
     var requestId: AppRequestId = AppRequestId.NONE,
     var timeStart: Instant = Instant.NONE,

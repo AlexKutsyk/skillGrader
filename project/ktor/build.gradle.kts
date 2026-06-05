@@ -33,6 +33,7 @@ kotlin {
                 implementation(libs.ktor.server.negotiation)
                 implementation(libs.ktor.server.headers.response)
                 implementation(libs.ktor.server.headers.caching)
+                implementation(libs.ktor.server.websocket)
 
                 implementation(project(":common"))
                 implementation(project(":app-common"))

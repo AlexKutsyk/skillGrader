@@ -10,7 +10,7 @@ class RuleProcessor(val corSettings: AppCorSettings) {
 
     suspend fun execute(ctx: AppContext) {
         ctx.ruleResponse = AppRuleStub.get()
-//        ctx.adsResponse = MkplAdStub.prepareSearchList("ad search", MkplDealSide.DEMAND).toMutableList()
+        ctx.rulesResponse = AppRuleStub.prepareSearchList("Kids A1").toMutableList()
         ctx.state = AppState.RUNNING
     }
 }

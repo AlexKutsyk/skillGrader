@@ -3,7 +3,7 @@ package com.otus.otuskotlin.skillGrader.project.common.models
 data class AppRule(
     var id: AppRuleId = AppRuleId.NONE,
     var name: String = "",
-    var grade: AppGrade = AppGrade.None,
+    var grade: AppGrade = AppGrade.NONE,
     var minGrammarPercent: Int = 0,
     var minLexiconsPercent: Int = 0,
     var minListeningPercent: Int = 0,

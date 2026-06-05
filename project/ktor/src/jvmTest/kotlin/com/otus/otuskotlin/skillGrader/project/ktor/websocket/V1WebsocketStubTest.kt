@@ -1,45 +1,40 @@
-package com.otus.otuskotlin.skillGrader.project.ktor.stub
+package com.otus.otuskotlin.skillGrader.project.ktor.websocket
 
-import com.fasterxml.jackson.databind.DeserializationFeature
-import com.fasterxml.jackson.databind.SerializationFeature
 import com.otus.otuskotlin.skillGrader.api.v1.models.Grade
 import com.otus.otuskotlin.skillGrader.api.v1.models.IRequest
+import com.otus.otuskotlin.skillGrader.api.v1.models.IResponse
+import com.otus.otuskotlin.skillGrader.api.v1.models.ResponseResult
 import com.otus.otuskotlin.skillGrader.api.v1.models.RuleCreateObject
 import com.otus.otuskotlin.skillGrader.api.v1.models.RuleCreateRequest
-import com.otus.otuskotlin.skillGrader.api.v1.models.RuleCreateResponse
 import com.otus.otuskotlin.skillGrader.api.v1.models.RuleDebug
 import com.otus.otuskotlin.skillGrader.api.v1.models.RuleDeleteObject
 import com.otus.otuskotlin.skillGrader.api.v1.models.RuleDeleteRequest
-import com.otus.otuskotlin.skillGrader.api.v1.models.RuleDeleteResponse
+import com.otus.otuskotlin.skillGrader.api.v1.models.RuleInitResponse
 import com.otus.otuskotlin.skillGrader.api.v1.models.RuleReadObject
 import com.otus.otuskotlin.skillGrader.api.v1.models.RuleReadRequest
-import com.otus.otuskotlin.skillGrader.api.v1.models.RuleReadResponse
 import com.otus.otuskotlin.skillGrader.api.v1.models.RuleRequestDebugMode
 import com.otus.otuskotlin.skillGrader.api.v1.models.RuleRequestDebugStubs
 import com.otus.otuskotlin.skillGrader.api.v1.models.RuleSearchFilter
 import com.otus.otuskotlin.skillGrader.api.v1.models.RuleSearchRequest
-import com.otus.otuskotlin.skillGrader.api.v1.models.RuleSearchResponse
 import com.otus.otuskotlin.skillGrader.api.v1.models.RuleUpdateObject
 import com.otus.otuskotlin.skillGrader.api.v1.models.RuleUpdateRequest
-import com.otus.otuskotlin.skillGrader.api.v1.models.RuleUpdateResponse
 import com.otus.otuskotlin.skillGrader.project.common.AppCorSettings
 import com.otus.otuskotlin.skillGrader.project.ktor.ServiceSettings
 import com.otus.otuskotlin.skillGrader.project.ktor.moduleJvm
-import io.ktor.client.call.*
-import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
-import io.ktor.http.*
+import io.ktor.client.plugins.websocket.*
 import io.ktor.serialization.jackson.*
 import io.ktor.server.testing.*
+import kotlinx.coroutines.withTimeout
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertIs
+import kotlin.time.Duration.Companion.seconds
 
-class V1RuleStubApiTest {
+class V1WebsocketStubTest {
+
     @Test
-    fun create() = v1TestApplication(
-        function = "create",
-        request = RuleCreateRequest(
+    fun createStub() {
+        val request = RuleCreateRequest(
             requestRule  = RuleCreateObject(
                 name = "A1 kids",
                 grade = Grade.A1,
@@ -53,33 +48,31 @@ class V1RuleStubApiTest {
                 mode = RuleRequestDebugMode.STUB,
                 stub = RuleRequestDebugStubs.SUCCESS
             )
-        ),
-    ) { response ->
-        val responseObj = response.body<RuleCreateResponse>()
-        assertEquals(200, response.status.value)
-        assertEquals("007", responseObj.rule?.id)
+        )
+
+        testMethod<IResponse>(request) {
+            assertEquals(ResponseResult.SUCCESS, it.result)
+        }
     }
 
     @Test
-    fun read() = v1TestApplication(
-        function = "read",
-        request = RuleReadRequest(
-            requestRule = RuleReadObject("007"),
+    fun readStub() {
+        val request = RuleReadRequest(
+            requestRule = RuleReadObject("666"),
             debug = RuleDebug(
                 mode = RuleRequestDebugMode.STUB,
                 stub = RuleRequestDebugStubs.SUCCESS
             )
-        ),
-    ) { response ->
-        val responseObj = response.body<RuleReadResponse>()
-        assertEquals(200, response.status.value)
-        assertEquals("007", responseObj.rule?.id)
+        )
+
+        testMethod<IResponse>(request) {
+            assertEquals(ResponseResult.SUCCESS, it.result)
+        }
     }
 
     @Test
-    fun update() = v1TestApplication(
-        function = "update",
-        request = RuleUpdateRequest(
+    fun updateStub() {
+        val request = RuleUpdateRequest(
             requestRule = RuleUpdateObject(
                 id = "007",
                 minGrammarPercent = 5,
@@ -90,67 +83,66 @@ class V1RuleStubApiTest {
                 mode = RuleRequestDebugMode.STUB,
                 stub = RuleRequestDebugStubs.SUCCESS
             )
-        ),
-    ) { response ->
-        val responseObj = response.body<RuleUpdateResponse>()
-        assertEquals(200, response.status.value)
-        assertEquals("007", responseObj.rule?.id)
+        )
+
+        testMethod<IResponse>(request) {
+            assertEquals(ResponseResult.SUCCESS, it.result)
+        }
     }
 
     @Test
-    fun delete() = v1TestApplication(
-        function = "delete",
-        request = RuleDeleteRequest(
+    fun deleteStub() {
+        val request = RuleDeleteRequest(
             requestRule = RuleDeleteObject(
-                id = "007",
+                id = "666",
             ),
             debug = RuleDebug(
                 mode = RuleRequestDebugMode.STUB,
                 stub = RuleRequestDebugStubs.SUCCESS
             )
-        ),
-    ) { response ->
-        val responseObj = response.body<RuleDeleteResponse>()
-        assertEquals(200, response.status.value)
-        assertEquals("007", responseObj.rule?.id)
+        )
+
+        testMethod<IResponse>(request) {
+            assertEquals(ResponseResult.SUCCESS, it.result)
+        }
     }
 
     @Test
-    fun search() = v1TestApplication(
-        function = "search",
-        request = RuleSearchRequest(
+    fun searchStub() {
+        val request = RuleSearchRequest(
             ruleFilter = RuleSearchFilter(),
             debug = RuleDebug(
                 mode = RuleRequestDebugMode.STUB,
                 stub = RuleRequestDebugStubs.SUCCESS
             )
-        ),
-    ) { response ->
-        val responseObj = response.body<RuleSearchResponse>()
-        assertEquals(200, response.status.value)
-        assertEquals("001", responseObj.rules?.first()?.id)
+        )
+
+        testMethod<IResponse>(request) {
+            assertEquals(ResponseResult.SUCCESS, it.result)
+        }
     }
 
-    private fun v1TestApplication(
-        function: String,
+    private inline fun <reified T> testMethod(
         request: IRequest,
-        action: suspend (HttpResponse) -> Unit,
-    ): Unit = testApplication {
+        crossinline assertBlock: (T) -> Unit
+    ) = testApplication {
         application { moduleJvm(ServiceSettings(corSettings = AppCorSettings())) }
         val client = createClient {
-            install(ContentNegotiation) {
-                jackson {
-                    disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-
-                    enable(SerializationFeature.INDENT_OUTPUT)
-                    writerWithDefaultPrettyPrinter()
-                }
+            install(WebSockets) {
+                contentConverter = JacksonWebsocketContentConverter()
             }
         }
-        val response = client.post("/v1/rule/$function") {
-            contentType(ContentType.Application.Json)
-            setBody(request)
+
+        client.webSocket("/v1/ws") {
+            withTimeout(3.seconds) {
+                val response = receiveDeserialized<IResponse>() as T
+                assertIs<RuleInitResponse>(response)
+            }
+            sendSerialized(request)
+            withTimeout(3.seconds) {
+                val response = receiveDeserialized<IResponse>() as T
+                assertBlock(response)
+            }
         }
-        action(response)
     }
 }

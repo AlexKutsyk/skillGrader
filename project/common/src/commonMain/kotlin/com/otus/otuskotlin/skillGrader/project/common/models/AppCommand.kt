@@ -7,4 +7,6 @@ enum class AppCommand {
     UPDATE,
     DELETE,
     SEARCH,
+    INIT,
+    FINISH,
 }

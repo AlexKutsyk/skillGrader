@@ -5,7 +5,7 @@ import com.otus.otuskotlin.skillGrader.project.common.AppContext
 import com.otus.otuskotlin.skillGrader.project.common.helpers.asAppError
 import com.otus.otuskotlin.skillGrader.project.common.models.AppCommand
 import com.otus.otuskotlin.skillGrader.project.common.models.AppState
-import ru.otus.otuskotlin.marketplace.api.log1.mapper.toLog
+import com.otus.otuskotlin.skillGrader.project.log.api.v1.toLog
 import kotlin.reflect.KClass
 import kotlin.time.Clock
 

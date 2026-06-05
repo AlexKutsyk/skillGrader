@@ -1,7 +1,7 @@
 package com.otus.otuskotlin.skillGrader.project.common.models
 
 enum class AppGrade {
-    None,
+    NONE,
     A1,
     A2,
     B1,

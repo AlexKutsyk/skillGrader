@@ -6,6 +6,7 @@ import com.otus.otuskotlin.skillGrader.api.v1.models.IResponse
 import com.otus.otuskotlin.skillGrader.api.v1.models.ResponseResult
 import com.otus.otuskotlin.skillGrader.api.v1.models.RuleCreateResponse
 import com.otus.otuskotlin.skillGrader.api.v1.models.RuleDeleteResponse
+import com.otus.otuskotlin.skillGrader.api.v1.models.RuleInitResponse
 import com.otus.otuskotlin.skillGrader.api.v1.models.RulePermissions
 import com.otus.otuskotlin.skillGrader.api.v1.models.RuleReadResponse
 import com.otus.otuskotlin.skillGrader.api.v1.models.RuleResponseObject
@@ -28,6 +29,8 @@ fun AppContext.toTransportRule(): IResponse = when (val cmd = command) {
     AppCommand.DELETE -> toTransportDelete()
     AppCommand.SEARCH -> toTransportSearch()
     AppCommand.NONE -> throw UnknownAppCommand(cmd)
+    AppCommand.INIT -> TODO()
+    AppCommand.FINISH -> TODO()
 }
 
 fun AppContext.toTransportCreate() = RuleCreateResponse(
@@ -58,6 +61,11 @@ fun AppContext.toTransportSearch() = RuleSearchResponse(
     result = state.toResult(),
     errors = errors.toTransportErrors(),
     rules = rulesResponse.toTransportRule()
+)
+
+fun AppContext.toTransportInit() = RuleInitResponse(
+    result = state.toResult(),
+    errors = errors.toTransportErrors(),
 )
 
 fun List<AppRule>.toTransportRule(): List<RuleResponseObject>? = this
@@ -117,5 +125,5 @@ internal fun AppGrade.toTransportRule(): Grade? =
         AppGrade.B2 -> Grade.B2
         AppGrade.C1 -> Grade.C1
         AppGrade.C2 -> Grade.C2
-        AppGrade.None -> null
+        AppGrade.NONE -> null
     }

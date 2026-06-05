@@ -5,8 +5,7 @@ plugins {
     alias(libs.plugins.crowdproj.generator)
     alias(libs.plugins.kotlinx.serialization)
 }
-println("ALEX / project.group - ${project.group}")
-println("ALEX / rootProject.ext[\"spec-log-v1\"] - ${rootProject.ext["spec-log-v1"]}")
+
 crowdprojGenerate {
     packageName.set("${project.group}.project.log.api.v1")
     inputSpec.set(rootProject.ext["spec-log-v1"] as String)
@@ -15,7 +14,7 @@ crowdprojGenerate {
 kotlin {
     sourceSets {
         val commonMain by getting {
-            kotlin.srcDirs(layout.buildDirectory.dir("generate-resources/src/commonMain/kotlin"))
+            kotlin.srcDirs(layout.buildDirectory.dir("generate-resources/src/commonMain/kotlin/com/otus/otuskotlin/skillGrader/project/log/api/v1/models"))
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 implementation(libs.coroutines.core)

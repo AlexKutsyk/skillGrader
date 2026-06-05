@@ -2,7 +2,7 @@ package com.otus.otuskotlin.skillGrader.project.stubs
 
 import com.otus.otuskotlin.skillGrader.project.common.models.*
 
-object AppRuleStubExample {
+object AppRuleStubBase {
     val RULE_STUB: AppRule
         get() = AppRule(
             id = AppRuleId("007"),

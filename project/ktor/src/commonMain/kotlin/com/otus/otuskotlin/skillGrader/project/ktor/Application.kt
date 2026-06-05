@@ -2,11 +2,18 @@ package com.otus.otuskotlin.skillGrader.project.ktor
 
 import com.otus.otuskotlin.skillGrader.project.ktor.plugins.initServerSettings
 import io.ktor.http.*
+import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.*
+import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.server.plugins.cors.routing.*
+import io.ktor.server.response.respondText
+import io.ktor.server.routing.get
+import io.ktor.server.routing.route
+import io.ktor.server.routing.routing
+import io.ktor.server.websocket.WebSockets
 
 fun Application.module(
-    serverSettings: ServiceSettings = initServerSettings()
+    serviceSettings: ServiceSettings = initServerSettings()
 ) {
     install(CORS) {
         allowMethod(HttpMethod.Options)
@@ -22,5 +29,11 @@ fun Application.module(
         */
         anyHost()
     }
-//    install(WebSockets)
+    install(WebSockets)
+
+    routing {
+        get("/") {
+            call.respondText("Hello, world!")
+        }
+    }
 }

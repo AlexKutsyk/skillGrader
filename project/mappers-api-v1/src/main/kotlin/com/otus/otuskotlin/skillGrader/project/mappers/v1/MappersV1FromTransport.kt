@@ -153,5 +153,5 @@ internal fun Grade?.fromTransport(): AppGrade =
         Grade.B2 -> AppGrade.B2
         Grade.C1 -> AppGrade.C1
         Grade.C2 -> AppGrade.C2
-        null -> AppGrade.None
+        null -> AppGrade.NONE
     }
