@@ -1,5 +1,8 @@
 package ru.otus.otuskotlin.marketplace.logging.socket
 
+import com.otus.otuskotlin.skillGrader.libs.lib.logging.socket.LoggerWrapperSocket
+import com.otus.otuskotlin.skillGrader.libs.lib.logging.socket.SocketLoggerSettings
+import com.otus.otuskotlin.skillGrader.libs.lib.logging.socket.loggerSocket
 import io.ktor.network.selector.*
 import io.ktor.network.sockets.*
 import io.ktor.utils.io.core.*
@@ -37,9 +40,9 @@ class SocketLoggerTest {
                 }
             }
             // Prepare Logger
-            mpLoggerSocket("test", loggerSettings).use { logger ->
+            loggerSocket("test", loggerSettings).use { logger ->
                 // Wait for logger is ready
-                while ((logger as? MpLoggerWrapperSocket)?.isReady?.value != true) {
+                while ((logger as? LoggerWrapperSocket)?.isReady?.value != true) {
                     delay(1)
                 }
                 coroutineScope {

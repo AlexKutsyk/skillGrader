@@ -1,0 +1,106 @@
+openapi: 3.0.4
+info:
+  title: SkillGrader log models
+  description: Log models for logging services of SkillGraderApp
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+paths: {}
+
+components:
+  schemas:
+    CommonLogModel:
+      title: Общая модель лога
+      description: Общая модель лога для всех микросервисов системы
+      type: object
+      properties:
+        messageTime:
+          type: string
+        logId:
+          type: string
+        source:
+          type: string
+        rule:
+          $ref: '#/components/schemas/AppLogModel'
+#        comments:
+#          $ref: '#/components/schemas/AppLogModel'
+#        files:
+#          $ref: '#/components/schemas/AppLogModel'
+#        images:
+#          $ref: '#/components/schemas/AppLogModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorLogModel'
+
+    AppLogModel:
+      title: Модель лога для микросервиса SkillGrader
+      type: object
+      properties:
+        requestId:
+          type: string
+        operation:
+          $ref: '#/components/schemas/AppLogOperation'
+        requestRule:
+          $ref: '#/components/schemas/RuleLog'
+        requestFilter:
+          $ref: '#/components/schemas/RuleFilterLog'
+        responseRule:
+          $ref: '#/components/schemas/RuleLog'
+
+    AppLogOperation:
+      type: string
+      enum:
+        - create
+        - read
+        - update
+        - delete
+        - search
+        - init
+        - finish
+
+    ErrorLogModel:
+      title: Модель лога для ошибки
+      type: object
+      properties:
+        message:
+          type: string
+        field:
+          type: string
+        code:
+          type: string
+        level:
+          type: string
+
+    RuleLog:
+      title: Модель лога Rule
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        grade:
+          type: string
+        minGrammarPercent:
+          type: integer
+        minLexiconsPercent:
+          type: integer
+        minListeningPercent:
+          type: integer
+        timeWindowDays:
+          type: integer
+        priority:
+          type: integer
+        permissions:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+
+    RuleFilterLog:
+      title: Модель лога фильтра
+      properties:
+        searchString:
+          type: string

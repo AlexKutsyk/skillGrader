@@ -8,6 +8,7 @@ version = "0.0.1"
 
 val specDir = "${rootDir}/../core/specs/specs"
 extra["spec-v1"] = "$specDir/skill-grader-spec-v1.yaml"
+extra["spec-log-v1"] = "$specDir/skill-grader-spec-log-v1.yaml"
 
 allprojects {
     repositories {

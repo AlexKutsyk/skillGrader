@@ -178,6 +178,7 @@ components:
           update: '#/components/schemas/RuleUpdateResponse'
           delete: '#/components/schemas/RuleDeleteResponse'
           search: '#/components/schemas/RuleSearchResponse'
+          init: '#/components/schemas/RuleInitResponse'
 
     UserId:
       type: string
@@ -378,7 +379,11 @@ components:
       allOf:
         - $ref: '#/components/schemas/IResponse'
         - $ref: '#/components/schemas/RuleResponseMulti'
-          
+
+    RuleInitResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+
     #STUBS
     RuleRequestDebugMode:
       type: string

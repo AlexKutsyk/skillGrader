@@ -28,8 +28,12 @@ plugins {
 //implementation(projects.m2l5Gradle.sub1.ssub1)
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-include(":app")
+//include(":app")
 include(":jackson-api-v1")
 include(":common")
 include(":mappers-api-v1")
 include(":stubs")
+include(":ktor")
+include(":log-api-v1")
+include(":biz")
+include(":app-common")

@@ -6,15 +6,15 @@ gradlePlugin {
     plugins {
         register("build-jvm") {
             id = "build-jvm"
-            implementationClass = "BuildPluginJvm"
+            implementationClass = "com.otus.otuskotlin.skillGrader.plugin.BuildPluginJvm"
         }
         register("build-kmp") {
             id = "build-kmp"
-            implementationClass = "BuildPluginMultiplatform"
+            implementationClass = "com.otus.otuskotlin.skillGrader.plugin.BuildPluginMultiplatform"
         }
         register("build-docker") {
             id = "build-docker"
-            implementationClass = "DockerPlugin"
+            implementationClass = "com.otus.otuskotlin.skillGrader.plugin.DockerPlugin"
         }
     }
 }
